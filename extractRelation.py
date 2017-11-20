@@ -1,3 +1,5 @@
+import 关系提取.splitContent as sc
+
 knowledges = []
 bikeWords = []
 contents = []
@@ -37,7 +39,7 @@ for knowledge in file:
                 lcontent += line
             else:
                 mcontent += line
-    content = {"LemmaSummary": lcontent, "mainContent": mcontent}
+    content = {"LemmaSummary": sc.splitWords(lcontent), "mainContent": sc.splitWords(mcontent)}
     contents.append(content)
 
 
@@ -57,9 +59,9 @@ def calScore(content, bikeWords):
     m = 0
     for bw in bikeWords:
         if llen > 0:
-            l += content["LemmaSummary"].count(bw) / llen
+            l += content["LemmaSummary"].count(bw)
         if mlen > 0:
-            m += content["mainContent"].count(bw) / mlen
+            m += content["mainContent"].count(bw)
         if llen + mlen == 0:
             return 0
     return l + m
@@ -82,7 +84,7 @@ for i, _ in enumerate(knowledges):
     flag = False
     for j, _ in enumerate(knowledges):
         score = calRelationScore(i, j)
-        if (score > 0.07):  # 如果评分大于5，则j是i的前驱
+        if (score >= 10 * len(knowledges[j])):  # 如果评分大于5，则j是i的前驱
             r += knowledges[j] + " "
             flag = True
     if flag == True:
