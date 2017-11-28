@@ -7,7 +7,6 @@ saveFromStopWords = ["幂", "圆", "线", "角", "积", "比", "根", "体", "�
 
 jieba.load_userdict("wordBase.txt")
 
-
 def splitWords(content):
     words = list(jieba.cut(content))
     res = []
