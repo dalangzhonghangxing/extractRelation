@@ -4,7 +4,7 @@ import numpy as np
 def init():
     #加载共现矩阵
     matrix = np.load("occurrenceMatrix.npy")
-    zeta = 0.02
+    zeta = 0.025
     return matrix,zeta
 
 
